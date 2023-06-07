@@ -2,9 +2,9 @@
 Actividad Curso Tipología y ciclo de vida de los datos
 dataset de Heart Attack Analysis & Prediction Dataset  - Un conjunto de datos para la clasificación de ataques cardíacos
  [fuente Original de datos.](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download)
-## Autor
+## Autores
 
-Oscar Augusto Diaz Triana, 
+Oscar Augusto Diaz Triana
 William Gabriel Granda Betancourt
 
 ## Acerca de este software
