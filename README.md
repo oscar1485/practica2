@@ -4,7 +4,7 @@ dataset de Heart Attack Analysis & Prediction Dataset  - Un conjunto de datos pa
  [fuente Original de datos.](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download)
 ## Autor
 
-Oscar Augusto Diaz Triana
+Oscar Augusto Diaz Triana, 
 William Gabriel Granda Betancourt
 
 ## Acerca de este software
