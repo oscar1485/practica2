@@ -17,35 +17,17 @@ output:
   word_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval=T, echo=T)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(showtext)
-library(gridExtra)
-library(kableExtra)
-```
+------------------------------------------------------------------------
+
+# 1.Descripción del dataset
 
 ------------------------------------------------------------------------
 
-# Descripción del dataset
+Vamos a trabajar con el conjunto de datos [Heart Attack Analysis & Prediction data](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download)[set](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-predictiondataset), el cual se encuentra disponible en Kaggle.
 
-------------------------------------------------------------------------
+El conjunto de datos sobre pacientes y las posibilidades de sufrir un infarto es de gran importancia debido a su relevancia para la salud cardiovascular. Al analizar este conjunto de datos, el objetivo es identificar las características o factores que influyen en la propensión de una persona a sufrir un ataque al corazón.( ¿Cuáles son las características que influyen en la propensión de una persona a sufrir un ataque cardíaco?)
 
-Vamos a trabajar con el conjunto de datos [Heart Attack Analysis & Prediction dataset](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-predictiondataset), el cual se encuentra disponible en Kaggle.
-
-```{r message= FALSE, warning=FALSE}
-data<-read.csv("./heart.csv",header=T,sep=",")
-```
-
-Empezaremos haciendo un análisis sobre el número de registros y número de variables que contiene el dataset.
-
-El conjunto de datos contiene `r data %>% nrow()` registros u observaciones y `r data %>% ncol()` variables. Contamos con las siguientes variables:
-
-```{r}
-str(data)
-```
+Contiene las siguientes variables:
 
 -   **age**: Edad del paciente. Es una variable numérica.
 -   **sex**: Sexo del paciente.
@@ -101,6 +83,36 @@ str(data)
 
     -   1 = más posibilidades de ataque al corazón,
     -   0 = menos posibilidades de ataque al corazón.
+
+# 2. Integración y selección
+
+La integración y selección de datos permite utilizar información relevante y de calidad para un análisis preciso y significativo, mejorando la toma de decisiones y obteniendo resultados confiables.
+
+Para realizar la integración y selección de datos en R con el dataset "Heart Attack Analysis & Prediction", se comienza descargando el dataset desde el enlace proporcionado. Luego, se cargan las bibliotecas necesaria.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval=T, echo=T)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(showtext)
+library(gridExtra)
+library(kableExtra)
+```
+
+```{r message= FALSE, warning=FALSE}
+data<-read.csv("./heart.csv",header=T,sep=",")
+```
+
+Empezaremos haciendo un análisis sobre el número de registros y número de variables que contiene el dataset.
+
+El conjunto de datos contiene `r data %>% nrow()` registros u observaciones y `r data %>% ncol()` variables. Contamos con las siguientes variables:
+
+```{r}
+str(data)
+```
+
+-   
 
 **Problema a resolver**:
 
