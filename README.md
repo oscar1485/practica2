@@ -4,8 +4,8 @@ dataset de Heart Attack Analysis & Prediction Dataset  - Un conjunto de datos pa
  [fuente Original de datos.](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download)
 ## Autores
 
-Oscar Augusto Diaz Triana
-William Gabriel Granda Betancourt
+1) Oscar Augusto Diaz Triana. 
+2) William Gabriel Granda Betancourt
 
 ## Acerca de este software
 
@@ -20,6 +20,9 @@ William Gabriel Granda Betancourt
 Puede vizualizar el conjunto de análisis y predicción de ataques cardíacos - Un conjunto de datos para la clasificación de ataques cardíacos en la siguiente dirección:
 
 [https://github.com/oscar1485/Practica_limpieza_y_analisis_de_datos/blob/main/heart.csv](https://github.com/oscar1485/Practica_limpieza_y_analisis_de_datos/blob/main/heart.csv)
+
+1) heart.csv: Contiene el conjunto de datos original.
+2) datosFin.xlsx: Contiene el conjunto de datos transformado. 
 
 ## Licencia
 
