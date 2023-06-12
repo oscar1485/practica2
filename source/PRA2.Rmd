@@ -17,81 +17,7 @@ output:
   word_document: default
 ---
 
-------------------------------------------------------------------------
-
-# 1.Descripción del dataset
-
-------------------------------------------------------------------------
-
-Vamos a trabajar con el conjunto de datos [Heart Attack Analysis & Prediction data](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download)[set](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-predictiondataset), el cual se encuentra disponible en Kaggle.
-
-El conjunto de datos sobre pacientes y las posibilidades de sufrir un infarto es de gran importancia debido a su relevancia para la salud cardiovascular. Al analizar este conjunto de datos, el objetivo es identificar las características o factores que influyen en la propensión de una persona a sufrir un ataque al corazón.( ¿Cuáles son las características que influyen en la propensión de una persona a sufrir un ataque cardíaco?)
-
-Contiene las siguientes variables:
-
--   **age**: Edad del paciente. Es una variable numérica.
--   **sex**: Sexo del paciente.
-    -   1 = hombre,
-    -   0 = mujer.
--   **exng**: Angina producida por ejercicio. Es un variable categórica y toma los siguientes valores:
-    -   1, si se posee la molestia
-    -   0, si no.
-
-(La angina es un dolor o molestia en el pecho producida cuando una zona del músculo cardíaco no recibe suficiente cantidad de sangre oxigenada).
-
--   **caa**: Número de vasos principales coloreados por fluroscopia. Es una variable numérica discreta y toma los siguientes valores: (0-3).
-
--   **cp**: Tipo de dolor toráxico. Es una variable categórica que toma los siguientes valores:
-
-    -   1: angina típica,
-    -   2: angina atípica,
-    -   3: dolor no anginoso,
-    -   0: asintomático.
-
--   **trtbps**: Presión arterial en reposo (en $mm Hg$).
-
--   **chol**: Colesterol en $mg/dl$ obtenido a través del sensor BMI.
-
--   **fbs**: Azúcar en sangre en ayunas $> 120 \; mg/dl$. Es una variable categórica, que toma los siguientes valores:
-
-    -   1 = verdadero,
-    -   0 = falso.
-
--   **restecg**: Resultados electrocardiográficos en reposo. Es un variable categórica que toma los siguientes valores:
-
-    -   0: normal,
-    -   1: Indica si el paciente tiene anomalías en la onda ST-T (inversiones de la onda T y/o elevación o depresión del $ST > 0.05\; mV$)
-    -   2: Indica si el paciente muestra hipertrofia ventricular izquierda probable o definitiva, según los criterios de Estes.
-
--   **thalachh**: Frecuencia cardíaca máxima alcanzada. Es una variable numérica continua.
-
--   **oldpeak**: Depresión del ST inducida por el ejercicio en relación con el reposo. Es una variable numérica continua.
-
--   **slp**: Pendiente de un segmento de electrocardiograma. Es una variable categórica que toma los siguientes valores:
-
-    -   0: pendiente descendente,
-    -   1: plano,
-    -   2: pendiente ascendente.
-
--   **thall**: Indica los resultados de prueba de esfuerzo con talio, la muestra qué tan bien fluye la sangre hacia el músculo cardíaco, tanto en reposo como en actividad. Es una variable categórica y toma los siguientes valores:
-
-    -   1: normal,\
-    -   2: defecto fijo,
-    -   3: defecto reversible.
-
--   **output**: Es nuestra variable binaria a predecir, toma los siguientes valores:
-
-    -   1 = más posibilidades de ataque al corazón,
-    -   0 = menos posibilidades de ataque al corazón.
-
-# 2. Integración y selección
-
-La integración y selección de datos permite utilizar información relevante y de calidad para un análisis preciso y significativo, mejorando la toma de decisiones y obteniendo resultados confiables.
-
-Para realizar la integración y selección de datos en R con el dataset "Heart Attack Analysis & Prediction", se comienza descargando el dataset desde el enlace proporcionado. Luego, se cargan las bibliotecas necesaria.
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(eval=T, echo=T)
+```{r setup, echo=FALSE, include=FALSE}
 library(dplyr)
 library(ggplot2)
 library(tidyr)
@@ -100,71 +26,143 @@ library(gridExtra)
 library(kableExtra)
 ```
 
-```{r message= FALSE, warning=FALSE}
+******
+# Descripción del dataset
+******
+
+Vamos a trabajar con el conjunto de datos [Heart Attack Analysis & Prediction dataset](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset), el cual se encuentra disponible en Kaggle. 
+
+**Problema a resolver**: 
+
+El conjunto de datos sobre pacientes y las posibilidades de sufrir un infarto es de gran importancia debido a su relevancia para la salud cardiovascular. Al analizar este conjunto de datos, el objetivo es identificar las características o factores que influyen en la propensión de una persona a sufrir un ataque al corazón. ( ¿Cuáles son las características que influyen en la propensión de una persona a sufrir un ataque cardíaco?)
+
+Mediante la implementación de un modelo de clasificación, es posible predecir con antelación si una persona es propensa a sufrir un ataque cardíaco. Esto permitiría a los especialistas médicos intervenir de manera oportuna y tomar medidas preventivas para reducir el riesgo. Al identificar las características que están fuertemente asociadas con los ataques cardíacos, se podrían desarrollar estrategias y programas de prevención más efectivos para mejorar la salud cardiovascular de la población en riesgo. 
+
+
+```{r message= FALSE, warning=FALSE, include=FALSE}
 data<-read.csv("./heart.csv",header=T,sep=",")
 ```
 
-Empezaremos haciendo un análisis sobre el número de registros y número de variables que contiene el dataset.
+Empezaremos haciendo un análisis sobre el número de registros y número de variables que contiene el dataset. 
 
 El conjunto de datos contiene `r data %>% nrow()` registros u observaciones y `r data %>% ncol()` variables. Contamos con las siguientes variables:
 
 ```{r}
 str(data)
 ```
+- **age**: Edad del paciente. Es una variable numérica.
+- **sex**: Sexo del paciente. 
+  - 1 = hombre, 
+  - 0 = mujer. 
+- **exng**: Angina producida por ejercicio. Es un variable categórica y toma los siguientes valores: 
+  - 1, si se posee la molestia
+  - 0, si no. 
 
--   
+(La angina es un dolor o molestia en el pecho producida cuando una zona del músculo cardíaco no recibe suficiente cantidad de sangre oxigenada). 
 
-**Problema a resolver**:
+- **caa**: Número de vasos principales coloreados por fluroscopia. Es una variable numérica discreta y toma los siguientes valores: (0-3). 
 
-De este modo, podemos concluir que el conjunto de datos contiene información sobre pacientes y las posibilidades de sufrir un infarto. El problema a resolver consiste en determinar aquellas características que influyen en que una persona sea más propensa a sufrir un ataque al corazón, para resolver este problema se podría implementar un modelo de clasificación.
+- **cp**: Tipo de dolor toráxico. Es una variable categórica que toma los siguientes valores: 
+  - 1: angina típica, 
+  - 2: angina atípica, 
+  - 3: dolor no anginoso, 
+  - 0: asintomático. 
+  
+- **trtbps**: Presión arterial en reposo (en $mm Hg$). 
 
-Este juego de datos es importante porque predecir con antelación que una persona sea propensa a sufrir un ataque cardíaco permitiría a los especialistas médicos intervenir a tiempo y tomar medidas tempranas para reducir este riesgo. De este modo se podría salvar vidas y mejorar la salud cardiovascular de la población de estudio.
+- **chol**: Colesterol en $mg/dl$ obtenido a través del sensor BMI. 
 
+- **fbs**: Azúcar en sangre en ayunas $> 120 \; mg/dl$. Es una variable categórica, que toma los siguientes valores: 
+  - 1 = verdadero, 
+  - 0 = falso. 
+  
+- **restecg**: Resultados electrocardiográficos en reposo. Es un variable categórica que toma los siguientes valores: 
+  - 1: normal, 
+  - 2: Indica si el paciente tiene anomalías en la onda ST-T (inversiones de la onda T y/o elevación o depresión del $ST > 0.05\; mV$)
+  - 0: Indica si el paciente muestra hipertrofia ventricular izquierda probable o definitiva, según los criterios de Estes. 
+
+- **thalachh**: Frecuencia cardíaca máxima alcanzada. Es una variable numérica continua. 
+
+- **oldpeak**: Depresión del ST inducida por el ejercicio en relación con el reposo. Es una variable numérica continua. 
+
+- **slp**: Pendiente de un segmento de electrocardiograma. Es una variable categórica que toma los siguientes valores: 
+  - 0: pendiente descendente,
+  - 1: plano, 
+  - 2: pendiente ascendente. 
+
+- **thall**: Indica los resultados de prueba de esfuerzo con talio, la  muestra qué tan bien fluye la sangre hacia el músculo cardíaco, tanto en reposo como en actividad. Es una variable categórica y toma los siguientes valores: 
+  - 1: defecto fijo,  
+  - 2: normal,
+  - 3: defecto reversible. 
+
+- **output**: Es nuestra variable binaria a predecir, toma los siguientes valores: 
+  - 1 = más posibilidades de ataque al corazón, 
+  - 0 = menos posibilidades de ataque al corazón. 
+
+******
+# Integración y selección
+******
+
+La integración y selección de datos permite utilizar información relevante y de calidad para un análisis preciso y significativo, mejorando la toma de decisiones y obteniendo resultados confiables.
+
+Tras analizar el diccionario de datos del dataset *Heart Attack Analysis & Prediction*, podemos notar que contamos con las variables necesarias para cumplir con el objetivo de la práctica, por lo que, en este caso no vamos a emplear datasets adicionales. 
+
+Con respecto a la selección de variables, a lo largo del desarrollo de la PRA vamos a presentar pruebas estadísticas que nos permitan identificar las variables que influyen en que una persona sea más propensa a sufrir un ataque al corazón. Algunas variables de interés podrían ser la *edad* y el *sexo* del paciente, los niveles de colesterol y la presión arterial.
+
+
+******
 # Limpieza de datos
+******
+La limpieza de datos es crucial para eliminar errores, valores faltantes y ruido, lo que mejora la calidad de los datos y evita sesgos en el análisis, proporcionando resultados más precisos y confiables.
 
-Vamos a emplear todas las variables numéricas y categóricas con la intención de determinar que variables influyen en que una persona sea más propensa a sufrir un ataque al corazón.
+Vamos a emplear todas las variables numéricas y categóricas con la intención de determinar que variables influyen en que una persona sea más propensa a sufrir un ataque al corazón. 
 
-Al aplicar la función str() pudimos notar que ciertas variables categóricas fueron identificadas como numéricas, por ello, vamos a transformarlas al tipo factor:
+Al aplicar la función str() pudimos notar que ciertas variables categóricas fueron identificadas como numéricas, por ello, vamos a transformarlas al tipo factor. 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 data<- data %>% mutate(sex = as.factor(sex), cp = as.factor(cp), thall = as.factor(thall), fbs = as.factor(fbs), 
                        restecg = as.factor(restecg), exng = as.factor(exng), slp = as.factor(slp), thall = as.factor(thall),
                        output = as.factor(output))
 ```
 
-En primer lugar, vamos a determinar si existen valores perdidos para cada variable:
+## ¿Los datos contienen ceros o elementos vacíos? Gestiona cada uno de estos casos.
 
-```{r, warning=FALSE, message=FALSE}
+En primer lugar, vamos a determinar si existen valores perdidos para cada variable: 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 sapply(data, function(x) {sum(is.na(x))})
 ```
 
-De este modo podemos obsevar que no existen valores atípicos.
+De este modo podemos obsevar que no existen valores atípicos. 
 
-Determinemos si existen valores duplicados:
+
+Determinemos si existen valores duplicados: 
 
 ```{r, warning=FALSE, message=FALSE}
 data[duplicated(data),]
 ```
+Con lo cual, existen dos filas duplicadas, la función unique() nos permite resolver este problema. 
 
-Con lo cual, existen dos filas duplicadas, la función unique() nos permite resolver este problema:
-
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 data<- data %>% unique()
 ```
 
-De este modo, nuestro juego de datos posee `r data %>% nrow()` observaciones.
+De este modo, nuestro juego de datos posee `r data %>% nrow()` observaciones. 
 
-Ahora, vamos a analizar cada una variables, para ello, presentamos sus estadísticos:
 
-```{r, warning=FALSE, message=FALSE}
+## Identifica y gestiona los valores extremos.
+
+Ahora, vamos a analizar cada una variables, para ello, presentamos sus estadísticos: 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 summary(data)
 ```
 
-## Variables numéricas
+### Variables numéricas
 
-Para complementar esta información vamos a presentar la distribución de las variables:
+Para complementar esta información vamos a presentar la distribución de las variables: 
 
-```{r, warning=FALSE, message=FALSE, fig.align='center'}
+```{r, warning=FALSE, message=FALSE, fig.align='center', echo=FALSE}
 data %>% select(is.numeric) %>% gather(metric, value) %>% ggplot(aes(value, fill = metric)) +
                                 geom_density(show.legend = FALSE) + facet_wrap(~ metric, scales = "free", ncol = 2) + 
                                 theme(strip.text=element_text(face='bold', size=14, hjust=0, color='white'),
@@ -172,23 +170,24 @@ data %>% select(is.numeric) %>% gather(metric, value) %>% ggplot(aes(value, fill
 
 ```
 
-Se tienen las siguientes observaciones:
+Se tienen las siguientes observaciones: 
 
--   **age**: La edad promedio de los pacientes es $54$ años, la edad mínima es $29$ años y la edad máxima es de $77$ años. Además, el $75\%$ de los pacientes es menor a $61$ años. Con respecto a la distribución de la variable podemos notar que es bimodal, es decir, presenta dos modas.
+- **age**: La edad promedio de los pacientes es $54$ años, la edad mínima es $29$ años y la edad máxima es de $77$ años. Además, el $75\%$ de los pacientes es menor a $61$ años. Con respecto a la distribución de la variable podemos notar que es bimodal, es decir, presenta dos modas. 
 
--   **caa**: El valor mínimo de esta variable es 0 y el valor máximo es 4. Como podemos notar la distribución de la variables es sesgada a la izquierda. El $75\%$ de los pacientes ha registrado entre 0 y 1 vasos colorados por fluroscopia.
+- **caa**: El valor mínimo de esta variable es 0 y el valor máximo es 4. Como podemos notar la distribución de la variables es sesgada a la izquierda. El $75\%$ de los pacientes ha registrado entre 0 y 1 vasos colorados por fluroscopia. 
 
--   **chol**: El valor mínimo del colestero es $94$ y el valor máximo es $200$, además, el $75\%$ de los pacientes tiene un colesterol inferior a $274.8$. Podemos notar que existen pocos valores en la cola derecha de la distribución los cuales pueden corresponder a valores atípicos.
+- **chol**: El valor mínimo del colestero es $94$ y el valor máximo es $200$, además, el $75\%$ de los pacientes tiene un colesterol inferior a $274.8$. Podemos notar que existen pocos valores en la cola derecha de la distribución los cuales pueden corresponder a valores atípicos. 
 
--   **oldpeak**: El valor mínimo de la depresión del segmento ST es $0$ y el valor máximo es de $6.2$. El $75\%$ de lo clientes posee un valor de depresión del segmento ST menor a $1.6$. La distribución de esta variable está acumulada a la izquierda.
+- **oldpeak**: El valor mínimo de la depresión del segmento ST es $0$ y el valor máximo es de $6.2$. El $75\%$ de lo clientes posee un valor de depresión del segmento ST menor a $1.6$. La distribución de esta variable está acumulada a la izquierda. 
 
--   **thalachh**: El valor mínimo de a frecuencia cardíaca máxima alcanzada es de $71$ y el valor máximo es de $202$. Además, el $75\%$ de los pacientes tiene una frecuencia máxima alcanza menor a $166$. La distribución de esta variable es sesgada a la derecha.
+- **thalachh**: El valor mínimo de a frecuencia cardíaca máxima alcanzada es de $71$ y el valor máximo es de $202$. Además, el $75\%$ de los pacientes tiene una frecuencia máxima alcanza menor a $166$. La distribución de esta variable es sesgada a la derecha. 
 
--   **trtbps**: El valor mínimo de la presión arterial es de $94$ y el valor máximo es de $200$. También podemos afirmar que el $75\%$ de los pacientes tiene una presión arterial menor o igual a $130$. Podemos notar que existen pocos valores en la cola derecha de la distribución, los cuales podrían corresponder a valores atípicos.
+- **trtbps**: El valor mínimo de la presión arterial es de $94$ y el valor máximo es de $200$. También podemos afirmar que el $75\%$ de los pacientes tiene una presión arterial menor o igual a $130$. Podemos notar que existen pocos valores en la cola derecha de la distribución, los cuales podrían corresponder a valores atípicos. 
 
-Ahora, analicemos los valores atípicos, para lo cual emplearemos el diagrama de cajas o boxplot:
 
-```{r, warning=FALSE, message=FALSE, fig.align='center'}
+Ahora, analicemos los valores atípicos, para lo cual emplearemos el diagrama de cajas o boxplot: 
+
+```{r, warning=FALSE, message=FALSE, fig.align='center', echo=FALSE}
 data %>% select(is.numeric) %>% gather(metric, value) %>% ggplot(aes(value, fill = metric)) +
                                 geom_boxplot(show.legend = FALSE) + facet_wrap(~ metric, scales = "free", ncol = 2) + 
                                 theme(strip.text=element_text(face='bold', size=14, hjust=0, color='white'),
@@ -196,11 +195,13 @@ data %>% select(is.numeric) %>% gather(metric, value) %>% ggplot(aes(value, fill
 
 ```
 
--   **caa**: La variable caa posee dos valores atípicos $3$ y $4$, no obstante en la definición de esta variable se especifica que su dominio es $(0-3)$, por lo que el único valor atípico es $4$. Vamos a reemplazar estos valores atípicos por el valor máximo de esta variable que es $3$.
+- **caa**: La variable caa posee dos valores atípicos $3$ y $4$, no obstante en la definición de esta variable se especifica que su dominio es $(0-3)$, por lo que el único valor atípico es $4$. Vamos a reemplazar estos valores atípicos por el valor máximo de esta variable que es $3$. 
 
--   Para las variables **chol**, **oldpeak** y **trtbps** vamos a reemplazar los valores atípicos por la mediana de cada una de las variables, debido la media está sesgada por los valores atípicos.
+- Para las variables **chol**, **oldpeak** y **trtbps** vamos a reemplazar los valores atípicos por la mediana de cada una de las variables, debido la media está sesgada por los valores atípicos. 
 
-```{r, warning=FALSE, message=FALSE}
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 
 ## Valores atípicos para chol: 
 
@@ -235,7 +236,7 @@ data<- data %>% mutate(caa = ifelse(caa >= 4, 3, caa), chol = ifelse(chol %in% a
 
 ```
 
-De este modo, podemos observar que no existen valores atípicos:
+De este modo, podemos observar que no existen valores atípicos: 
 
 ```{r, warning=FALSE, message=FALSE, fig.align='center'}
 data %>% select(is.numeric) %>% gather(metric, value) %>% ggplot(aes(value, fill = metric)) +
@@ -244,11 +245,11 @@ data %>% select(is.numeric) %>% gather(metric, value) %>% ggplot(aes(value, fill
                                 strip.background=element_rect(fill='black'))
 ```
 
-## Variables categóricas
+### Variables categóricas
 
-Para las variables categóricas vamos a presentar su diagrama de frecuencias:
+Para las variables categóricas vamos a presentar su diagrama de frecuencias: 
 
-```{r, warning=FALSE, message=FALSE, fig.align='center', fig.height=15, fig.width=10}
+```{r, warning=FALSE, message=FALSE, fig.align='center', fig.height=8, fig.width=8, echo=FALSE}
 plotSex<- ggplot(data,aes(sex, fill = sex)) + geom_bar() + geom_text(aes(label = paste0( round(..count../sum(..count..)*100,2) , "%")), stat = "count",position = position_stack(vjust=0.5)) + labs(x="Sex", y="Pacientes")+ guides(fill=guide_legend(title="")) + theme(legend.position="none")
 #
 plotcp<- ggplot(data,aes(cp, fill = cp)) + geom_bar() + geom_text(aes(label = paste0( round(..count../sum(..count..)*100,2) , "%")), stat = "count",position = position_stack(vjust=0.5)) + labs(x="Tipo de dolor toráxico", y="Pacientes") + guides(fill=guide_legend(title="")) + theme(legend.position="none")
@@ -261,81 +262,96 @@ plotrestecg<- ggplot(data,aes(restecg, fill = restecg)) + geom_bar() + geom_text
 #
 plotexng<- ggplot(data,aes(exng, fill = exng)) + geom_bar() + geom_text(aes(label = paste0( round(..count../sum(..count..)*100,2) , "%")), stat = "count",position = position_stack(vjust=0.5)) + labs(x="Angina", y="Pacientes") + guides(fill=guide_legend(title="")) + theme(legend.position="none")
 # 
-plotslp<- ggplot(data,aes(slp, fill = slp)) + geom_bar() + geom_text(aes(label = paste0( round(..count../sum(..count..)*100,2) , "%")), stat = "count",position = position_stack(vjust=0.5)) + labs(x="Pendiente segmento electrocardiograma", y="Pacientes") + guides(fill=guide_legend(title="")) + theme(legend.position="none")
+plotslp<- ggplot(data,aes(slp, fill = slp)) + geom_bar() + geom_text(aes(label = paste0( round(..count../sum(..count..)*100,2) , "%")), stat = "count",position = position_stack(vjust=0.5)) + labs(x="Pendiente segmento", y="Pacientes") + guides(fill=guide_legend(title="")) + theme(legend.position="none")
 # 
 plotthall<- ggplot(data,aes(thall, fill = thall)) + geom_bar() + geom_text(aes(label = paste0( round(..count../sum(..count..)*100,2) , "%")), stat = "count",position = position_stack(vjust=0.5)) + labs(x="Prueba de esfuerzo", y="Pacientes") + guides(fill=guide_legend(title="")) + theme(legend.position="none")
 # 
 plotoutput<- ggplot(data,aes(output, fill = output)) + geom_bar() + geom_text(aes(label = paste0( round(..count../sum(..count..)*100,2) , "%")), stat = "count",position = position_stack(vjust=0.5)) + labs(x="Output", y="Pacientes") + guides(fill=guide_legend(title="")) + theme(legend.position="none")
 
-grid.arrange(plotSex, plotcp, plotfbs, plotthall, plotrestecg, plotexng, plotslp, plotslp, plotthall, plotoutput, ncol = 2)
+grid.arrange(plotSex, plotcp, plotfbs, plotthall, plotrestecg, plotexng, plotslp, plotthall, plotoutput, ncol = 3)
 ```
 
-Se tienen las siguientes observaciones:
+Se tienen las siguientes observaciones: 
 
--   **sex**: El $68.21\%$ de los pacientes son hombres, mientras que el $31.79\%$ son mujeres.
--   **cp**: El $43.25\%$ de los pacientes es asintomático, el $16.56\%$ posee angina típica, el $28.48\%$ posee angina atípica y el $7.62\%$ tiene dolor no anginoso.
--   **fbs**: El $85.15\%$ de los pacientes no posee azúcar en sangre en ayunas superior a $120 \; mg/dl$, mientras que el $14.85\%$ de los pacientes si posee niveles de azúcar superiores.
--   **thall**: El $85.1\%$ de los pacientes no registra azúcar en la sangre mayor a $>120\;mg/dl$, mientras que el $14.9\%$ sí.
--   **restecg**: El $48.68\%$ de los pacientes posee resultados electrocardiográficos normales, el $50\%$ de los pacientes posee anomalías en la onda ST-T y finalmente, el $1.32\%$ de los pacientes muestra hipertrofia ventricular izquierda probable o definitiva.
--   **exng**: El $67.22\%$ de los pacientes no posee el dolor de angina, mientras que el $32.78\%$ sí lo posee.
--   **slp**: El $6.95\%$ posee una pendiente descendiente de segmento de electrocardiograma, el $46.36\%$ posee una pendiente plana y el $46.69\%$ posee una pendiente ascendente.
--   **thall**: Esta variable solamente debería tomar tres valores, por lo que el valor de cero corresponde a un valor perdido, reemplazaremos este valor por $2$, que es el valor que más se repite. El $5.96\%$ de los pacientes posee un defecto fijo, el $54.94\%$ de los pacientes dio un resultado normal y el $38.74\%$ tiene un defecto reversible.
+- **sex**: El $68.21\%$ de los pacientes son hombres, mientras que el $31.79\%$ son mujeres. 
+- **cp**: El $43.25\%$ de los pacientes es asintomático, el $16.56\%$ posee angina típica, el $28.48\%$ posee angina atípica y el $7.62\%$  tiene dolor no anginoso. 
+- **fbs**: El $85.15\%$ de los pacientes no posee azúcar en sangre en ayunas superior a $120 \; mg/dl$, mientras que el $14.85\%$ de los pacientes si posee niveles de azúcar superiores. 
+- **thall**: El $85.1\%$ de los pacientes no registra azúcar en la sangre mayor a $>120\;mg/dl$, mientras que el $14.9\%$ sí. 
+- **restecg**: El $1.32\%$ de los pacientes posee resultados electrocardiográficos normales, el $48.68\%$ de los pacientes posee anomalías en la onda ST-T y finalmente, el $50\%$ de los pacientes muestra hipertrofia ventricular izquierda probable o definitiva.
+- **exng**: El $67.22\%$ de los pacientes no posee el dolor de angina, mientras que el $32.78\%$ sí lo posee. 
+- **slp**: El $6.95\%$ posee una pendiente descendiente de segmento de electrocardiograma, el $46.36\%$ posee una pendiente plana y el $46.69\%$ posee una pendiente ascendente. 
+- **thall**: Esta variable solamente debería tomar tres valores, por lo que el valor de cero corresponde a un valor perdido, reemplazaremos este valor por $2$, que es el valor que más se repite. El $54.94\%$ de los pacientes posee un defecto fijo, el $5.96\%$ de los pacientes dio un resultado normal y el $38.74\%$ tiene un defecto reversible. 
 
 ```{r, warning=FALSE, message=FALSE}
 data<- data %>% mutate(thall = if_else(thall == "0", "2", thall) )
 ```
 
--   **output**: El $45.7\%$ de los pacientes tiene menos probabilidades de sufrir un ataque al corarón, mientras que el $54.3\%$ de los pacientes tiene más probabilidades de sufrir un ataque al corazón.
+-  **output**: El $45.7\%$ de los pacientes tiene menos probabilidades de sufrir un ataque al corarón, mientras que el $54.3\%$ de los pacientes tiene más probabilidades de sufrir un ataque al corazón. 
+
+
+******
+# Análisis de datos
+******
+
+Aplicando el análisis de datos podemos obtener información relevante sobre los factores que pueden influir en los ataques cardíacos. Al explorar y examinar los datos, podemos identificar patrones, relaciones y características relevantes que ayudarán a comprender mejor los riesgos y tomar medidas preventivas adecuadas para la salud cardiovascular de los pacientes, lo que potencialmente puede salvar vidas y mejorar la calidad de vida de las personas.
+
+En este paso del análisis, se seleccionan los grupos de datos que se desean analizar y comparar, en este caso, en función de la variable "output". Se aplicará un análisis de variables numéricas, específicamente se examinará el comportamiento de las variables "age", "trtbps", "thalachh" y "oldpeak" en relación con la variable "output". Se utilizará la técnica de diagramas de cajas para visualizar las diferencias entre los grupos. Se observa que hay diferencias significativas en estas variables con respecto a "output". Para confirmar estas hipótesis, se realizarán pruebas estadísticas, incluyendo la transformación de Box-Cox en las variables no normalmente distribuidas.
+
+Además, se realizará un análisis de las variables categóricas "sex", "cp", "thall", "restecg", "exng", "slp" y "thall" para determinar si existen diferencias significativas entre los grupos definidos por "output". Se presentarán diagramas de frecuencias para visualizar el comportamiento de estas variables en relación con "output" y se realizarán pruebas estadísticas, como el test de chi-cuadrado y el análisis de frecuencias relativas, para identificar posibles asociaciones o diferencias entre los grupos.
+
+
+Previo a aplicar los análisis mencionados, es importar validar las hipótesis de los mismos, tales como normalidad y homogeneidad de las varianzas. 
 
 ## Correlaciones
 
-Em primer lugar, para determinar el tipo de prueba para analizar las correlaciones de las variables numéricas vamos a verificar si nuestras variables tienen o no distribuciones normales. Para ello, emplearemos la prueba de Shapiro-Wilk, la cual contrasta las siguientes hipótesis:
+En primer lugar, para determinar el tipo de prueba para analizar las correlaciones de las variables numéricas vamos a verificar si nuestras variables tienen o no distribuciones normales. Para ello, emplearemos la prueba de Shapiro-Wilk, la cual contrasta las siguientes hipótesis: 
 
 $$\begin{cases} H_0: \text{Los datos siguen distribución normal.} \\ H_1: \text{Los datos no siguen una ditribución normal.} \; \end{cases}$$
 
 **age**
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(data$age)
 ```
-
-Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal.
+Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal. 
 
 **trtbps**
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(data$trtbps)
 ```
-
-Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal.
+Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal. 
 
 **chol**
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(data$chol)
 ```
 
-Considerando un nivel de confianza $\alpha = 0.05$ no se rechaza la hipótesis nula, y podemos concluir que los datos siguen una distribución normal.
 
-**thalachh**:
+Considerando un nivel de confianza $\alpha = 0.05$ no se rechaza la hipótesis nula, y podemos concluir que los datos  siguen una distribución normal. 
 
-```{r}
+
+**thalachh**: 
+
+```{r, echo=FALSE}
 shapiro.test(data$thalachh)
 ```
+Para un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal. 
 
-Para un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal.
 
 **oldpeak**:
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(data$oldpeak)
 ```
 
-De igual forma si se considera un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal.
+De igual forma si se considera un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal. 
 
-Dado que tres de las cuatro variables numéricas no siguen una distribución normal, vamos a emplear la prueba de correlación de Spearman, la cual es una alternativa no paramétrica cuando las variables no son normales.
 
-```{r, warning=FALSE, message=FALSE, fig.align='center'}
+Dado que tres de las cuatro variables numéricas no siguen una distribución normal, vamos a emplear la prueba de correlación de Spearman, la cual es una alternativa no paramétrica cuando las variables no son normales. 
+
+```{r, warning=FALSE, message=FALSE, fig.align='center', echo=FALSE}
 library(corrplot)
 
 correlaciones<- cor(data %>% select(age, trtbps, chol, thalachh, oldpeak), method = "spearman" ) 
@@ -343,49 +359,51 @@ corrplot(correlaciones, method="color",tl.col="black", tl.srt=30, order = "AOE",
 number.cex=0.75,sig.level = 0.01, addCoef.col = "black")
 ```
 
-No observamos fuertes correlaciones positivas o negativas entre las variables, no obtante, vamos a aplicar pruebas de hipótesis para determinar si la correlación es significativamente distinta de cero. Para lo cual, emplearemos la prueba de Spearman, la cual contrasta las hipótesis:
+No observamos fuertes correlaciones positivas o negativas entre las variables, no obtante, vamos a aplicar pruebas de hipótesis para determinar si la correlación es significativamente distinta de cero. Para lo cual, emplearemos la prueba de Spearman, la cual contrasta las hipótesis: 
 
-$$\begin{cases} H_0: \text{Las variables}\; X\; \text{y} \; Z\; \text{son independientes}\\ H_1: \text{Las variables}\; X\; \text{y} \; Z\; \text{no son independientes}  \end{cases}$$ **thalachh vs oldpeak**
+$$\begin{cases} H_0: \text{Las variables}\; X\; \text{y} \; Z\; \text{son independientes}\\ H_1: \text{Las variables}\; X\; \text{y} \; Z\; \text{no son independientes}  \end{cases}$$
+**thalachh vs oldpeak**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 cor.test(data$thalachh, data$oldpeak, method="spearman")
 ```
-
-Para un nivel de confianza $\alpha = 0.05$, se rechaza la hipótesis nula y podemos concluir que la correlación entre las variables **thalachh** y **oldpeak** es de $-0.417$, no obstante, este no es un valor elevado.
+Para un nivel de confianza $\alpha = 0.05$, se rechaza la hipótesis nula y podemos concluir que la correlación entre las variables **thalachh** y **oldpeak** es de $-0.417$, no obstante, este no es un valor elevado. 
 
 **thalachh vs age**
 
-También aplicaremos la prueba a las variables **thalachh** y \*\*age\*:
+También aplicaremos la prueba a las variables **thalachh** y **age*: 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 cor.test(data$thalachh, data$age, method="spearman")
 ```
 
 De igual forma, considerando un nivel de confianza $\alpha = 0.05$, se rechaza la hipótesis nula y podemos concluir que la correlación entre las variables **thalachh** y **age** es de $-0.393$, el cual no es un valor elevado.
 
+
 **thalachh vs trtbps**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 cor.test(data$thalachh, data$trtbps, method="spearman")
 ```
 
-Con un nivel de confianza $\alpha = 0.05$, dado que $p-valor > \alpha$, no se rechaza la hipótesis nula y podemos concluir que las variables **thalachh** y **trtbps** son independientes.
+Con un nivel de confianza $\alpha = 0.05$, dado que $p-valor > \alpha$, no se rechaza la hipótesis nula y podemos concluir que las variables **thalachh** y **trtbps** son independientes. 
 
 **thalachh vs chol**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 cor.test(data$thalachh, data$chol, method="spearman")
 ```
 
-De igual forma, con un nivel de confianza $\alpha = 0.05$, dado que $p-valor > \alpha$, no se rechaza la hipótesis nula y podemos concluir que las variables **thalachh** y **trtbps** son independientes.
+De igual forma, con un nivel de confianza $\alpha = 0.05$, dado que $p-valor > \alpha$, no se rechaza la hipótesis nula y podemos concluir que las variables **thalachh** y **trtbps** son independientes. 
 
-# Comparación entre grupos
+## Comparación entre grupos
 
-## Variables numéricas
+### Variables numéricas
 
-En primer, lugar vamos a estudiar gráficamente el comportamiento de las variables **age**, **trtbps**, **thalachh** y **oldpeak** con respecto a la variable **output**, para lo cual, vamos a diagramas de cajas:
 
-```{r, warning=FALSE, message=FALSE, fig.align='center'}
+En primer, lugar vamos a estudiar gráficamente el comportamiento de las variables **age**, **trtbps**, **thalachh** y **oldpeak** con respecto a la variable **output**, para lo cual, vamos a diagramas de cajas: 
+
+```{r, warning=FALSE, message=FALSE, fig.align='center', echo=FALSE}
 data %>% select(age, trtbps, chol, thalachh, oldpeak, output) %>% 
                gather(metric, value, 1:5) %>% ggplot(aes(value, group = output, colour = output)) +
   geom_boxplot() +
@@ -393,11 +411,11 @@ data %>% select(age, trtbps, chol, thalachh, oldpeak, output) %>%
         strip.background=element_rect(fill='black'))
 ```
 
-Podemos notar que existen diferencias significativas de las variables **age**, **chol**, **oldpeak** y **thalachh** con respecto a la variable **ouput**. Vamos a comprobar estas hipótesis aplicando pruebas estadísticas.
+Podemos notar que existen diferencias significativas de las variables **age**, **chol**, **oldpeak** y **thalachh** con respecto a la variable **ouput**. Vamos a comprobar estas hipótesis aplicando pruebas estadísticas. 
 
-Para ello, en primer lugar, como pudimos observar anteriormente solamente la variable **chol** sigue una distribución normal por lo que vamos a aplicar la transformación de Box - Cox para el resto de variables:
+Para ello, en primer lugar, como pudimos observar anteriormente solamente la variable **chol** sigue una distribución normal por lo que vamos a aplicar la transformación de Box - Cox para el resto de variables: 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 library(DescTools)
 
 dataT<- data %>% mutate(ageT = BoxCox(age, lambda = BoxCoxLambda(age)), trtbpsT = BoxCox(trtbps, lambda = BoxCoxLambda(trtbps)), 
@@ -405,197 +423,199 @@ dataT<- data %>% mutate(ageT = BoxCox(age, lambda = BoxCoxLambda(age)), trtbpsT 
 
 ```
 
-De este modo, aplicamos la prueba de Shapiro-Wilk a las variables transformadas:
+De este modo, aplicamos la prueba de Shapiro-Wilk a las variables transformadas: 
 
 **age**
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(dataT$ageT)
 ```
-
-Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal.
+Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal. 
 
 **trtbps**
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(dataT$trtbpsT)
 ```
+Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal. 
 
-Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal.
+**thalachh**: 
 
-**thalachh**:
-
-```{r}
+```{r, echo=FALSE}
 shapiro.test(dataT$thalachhT)
 ```
+Para un nivel de confianza $\alpha = 0.05$, dado que $p-valor > \alpha$, no se rechaza la hipótesis nula, y podemos concluir que los datos siguen una distribución normal. 
 
-Para un nivel de confianza $\alpha = 0.05$, dado que $p-valor > \alpha$, no se rechaza la hipótesis nula, y podemos concluir que los datos siguen una distribución normal.
 
 **oldpeak**:
 
-```{r}
+```{r, echo=FALSE}
 shapiro.test(dataT$oldpeakT)
 ```
+Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal. 
 
-Considerando un nivel de confianza $\alpha = 0.05$ se rechaza la hipótesis nula, y podemos concluir que los datos no siguen una distribución normal.
+De este modo, vamos a aplicar la prueba de homocedasticidad a la variable **chol** y a la variable transformada **thalachh**: 
 
-De este modo, vamos a aplicar la prueba de homocedasticidad a la variable **chol** y a la variable transformada **thalachh**:
 
-**chol**:
+**chol**: 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 library(car)
 
 leveneTest(chol ~ output, data = dataT)
 ```
 
-Al nivel de significancia $\alpha = 0.05$ no rechazamos la hipótesis nula, es decir, la varianza de la variable **chol** con respecto a la variable **output** es homogénea, por lo cual podemos aplicar la prueba t de Student.
+Al nivel de significancia $\alpha = 0.05$ no rechazamos la hipótesis nula, es decir, la varianza de la variable **chol** con respecto a la variable **output** es homogénea, por lo cual podemos aplicar la prueba t de Student. 
 
-```{r}
+```{r, echo=FALSE}
 t.test(chol ~ output, data = dataT)
 ```
+En este caso, el $p-valor$ es mayor al nivel de significancia $\alpha = 0.05$. Por lo cual, no se rechaza la hipótesis nula, es decir, no se observan diferencias significativas entre el colesterol de las personas menos propensas a sufrir un ataque cardíaco y las personas más propensas a sufrir un ataque cardíaco. 
 
-En este caso, el $p-valor$ es mayor al nivel de significancia $\alpha = 0.05$. Por lo cual, no se rechaza la hipótesis nula, es decir, no se observan diferencias significativas entre el colesterol de las personas menos propensas a sufrir un ataque cardíaco y las personas más propensas a sufrir un ataque cardíaco.
+**thalachhT**: 
 
-**thalachhT**:
-
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 leveneTest(thalachhT ~ output, data = dataT)
 ```
+Al nivel de significancia $\alpha = 0.05$ no rechazamos la hipótesis nula, es decir, las varianzas son homogéneas, por lo cual podemos aplicar la prueba t de Student. 
 
-Al nivel de significancia $\alpha = 0.05$ no rechazamos la hipótesis nula, es decir, las varianzas son homogéneas, por lo cual podemos aplicar la prueba t de Student.
-
-```{r}
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 t.test(thalachhT ~ output, data = dataT)
 ```
 
-En este caso, el $p-valor$ es menor al nivel de significancia $\alpha = 0.05$. Por lo cual, se rechaza la hipótesis nula, es decir, se observan diferencias significativas de la frecuencia máxima alcanzada entre entre las personas menos propensas a sufrir un ataque cardíaco y las personas más propensas a sufrir un ataque cardíaco. De hecho, podemos ver que el promedio estimado del grupo de personas menos propensas es menor al grupo de las personas más propensas.
 
-Para el resto de variables numéricas vamos a trabajar con las variables originales, dado que las tranformaciones de Box y Cox de estas variables no cumplieron el supuesto de normalidad y aplicaremos la prueba de Wilcoxon:
+En este caso, el $p-valor$ es menor al nivel de significancia $\alpha = 0.05$. Por lo cual, se rechaza la hipótesis nula, es decir, se observan diferencias significativas de la frecuencia máxima alcanzada entre entre las personas menos propensas a sufrir un ataque cardíaco y las personas más propensas a sufrir un ataque cardíaco. De hecho, podemos ver que el promedio estimado del grupo de personas menos propensas es menor al grupo de las personas más propensas. 
+
+
+Para el resto de variables numéricas vamos a trabajar con las variables originales, dado que las tranformaciones de Box y Cox de estas variables no cumplieron el supuesto de normalidad y aplicaremos la prueba de Wilcoxon: 
 
 **age**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 wilcox.test(age ~ output, data = data)
 ```
 
-En este caso el $p-valor$ es menor al nivel de significancia $\alpha = 0.05$, por lo cual, sí se observan diferencias estadísticamente significativas en la edad de los pacientes con respecto a la variable **output**.
+En este caso el $p-valor$ es menor al nivel de significancia $\alpha = 0.05$, por lo cual, sí se observan diferencias estadísticamente significativas en la edad de los pacientes con respecto a la variable **output**. 
+
 
 **chol**
 
-```{r}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 wilcox.test(chol ~ output, data = data)
 ```
 
-El $p-valor$ es menor al nivel de significancia $\alpha = 0.05$, por lo cual, sí se observan diferencias estadísticamente significativas en el nivel del colesterol entre las pesonas menos probables y más probables a sufir un ataque al corazón.
+El $p-valor$ es menor al nivel de significancia $\alpha = 0.05$, por lo cual, sí se observan diferencias estadísticamente significativas en el nivel del colesterol entre las pesonas menos probables y más probables a sufir un ataque al corazón. 
+
 
 **trtbps**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 wilcox.test(trtbps ~ output, data = data)
 ```
+En este caso el $p-valor$ es mayor al nivel de significancia $\alpha = 0.05$, por lo cual, no se observan diferencias estadísticamente significativas en la presión arterial entre los pacientes más propensos y menos propensos a sufrir ataques cardíacos. 
 
-En este caso el $p-valor$ es mayor al nivel de significancia $\alpha = 0.05$, por lo cual, no se observan diferencias estadísticamente significativas en la presión arterial entre los pacientes más propensos y menos propensos a sufrir ataques cardíacos.
 
 **oldpeakT**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 wilcox.test(oldpeak ~ output, data = data)
 ```
 
-En este caso el $p-valor$ es menor al nivel de significancia $\alpha = 0.05$, por lo cual, sí se observan diferencias estadísticamente significativas en la depresión del segmento ST de los pacientes más probables y menos probables a sufir ataques cardíacos.
 
-## Variables categóricas
+En este caso el $p-valor$ es menor al nivel de significancia $\alpha = 0.05$, por lo cual, sí se observan diferencias estadísticamente significativas en la depresión del segmento ST de los pacientes más probables y menos probables a sufir ataques cardíacos. 
 
-En esta sección vamos a determinar si existen diferencias significativas de las variables categóricas **sex**, **cp**, **thall**, **restecg**, **exng**, **slp**, **thall** entre los grupos definidos por la variable categórica **output**. En primer lugar, vamos a presentar diagramas de frecuencias de cada una de estas variables con respecto a la variable **output**, lo cual nos permitirá formar una idea sobre el comportamiento de estas variables.
+### Variables categóricas
 
-Para ello, vamos a emplear el test $\chi^2$, el cual plantea la siguiente prueba de hipótesis:
+En esta sección vamos a determinar si existen diferencias significativas de las variables categóricas **sex**, **cp**, **thall**, **restecg**, **exng**, **slp**, **thall**  entre los grupos definidos por la variable categórica **output**. En primer lugar, vamos a presentar diagramas de frecuencias de cada una de estas variables con respecto a la variable **output**, lo cual nos permitirá formar una idea sobre el comportamiento de estas variables. 
+
+
+Para ello, vamos a emplear el test $\chi^2$, el cual plantea la siguiente prueba de hipótesis: 
 
 $$\begin{cases} H_0: \text{La variable}\; X\; \text{es independiente a la variable}\; Y. \\ H_1: \text{Las variables}\; X\; \text{y} \; Y\; \text{están asocidadas}. \; \end{cases}$$
 
-**sex** y **output**:
 
-```{r}
+**sex** y **output**: 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 prop.table(table(data$sex, data$output), margin = 1)
 ```
+- Podemos notar que el $75\%$ de las mujeres son más propensas a sufrir un ataque cardíaco, mientras que en los hombres solamente el $49.83\%$ lo son. 
 
--   Podemos notar que el $75\%$ de las mujeres son más propensas a sufrir un ataque cardíaco, mientras que en los hombres solamente el $49.83\%$ lo son.
 
-Con la prueba $\chi^2$ se obtienen los siguientes resultados:
+Con la prueba $\chi^2$ se obtienen los siguientes resultados: 
 
 ```{r, warning=FALSE, message=FALSE}
 outputsex<- table(data$sex, data$output)
 chisq.test(outputsex)
 ```
-
-Considerando un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **sex** y **output**. Es decir, podemos afirmar que la distribución de género difiere significativamente entre los grupos de **output**.
+Considerando un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **sex** y **output**. Es decir, podemos afirmar que la distribución de género difiere significativamente entre los grupos de **output**. 
 
 **cp** y **output**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, warning=FALSE, message=FALSE}
 prop.table(table(data$cp, data$output), margin = 1)
 ```
 
--   Solamente para los pacientes asintomáticos la tasa de personas sanas es mayor a la tasa de personas propensas a sufrir una enfermedad. En este caso, la tasa de personas sanas es de $72.72\%$.
+- Solamente para los pacientes asintomáticos la tasa de personas sanas es mayor a la tasa de personas propensas a sufrir una enfermedad. En este caso, la tasa de personas sanas es de $72.72\%$. 
 
--   En las categorías angina típica, angina atípica y dolor no anginoso, la tasa de personas sanas es menor, siendo estas de $18\%$, $20.69\%$ y $30.43\%$, respectivamente.
+- En las categorías angina típica, angina atípica y dolor no anginoso, la tasa de personas sanas es menor, siendo estas de $18\%$, $20.69\%$ y $30.43\%$, respectivamente. 
 
-Aplicado la prueba $\chi^2$, tenemos que:
+
+Aplicado la prueba $\chi^2$, tenemos que: 
 
 ```{r, warning=FALSE, message=FALSE}
 outputcp<- table(data$cp, data$output)
 chisq.test(outputcp)
 ```
 
-Para un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **cp** y **output**. Es decir, podemos afirmar que la distribución de la variable **cp** (tipo de dolor toráxico) difiere significativamente entre los grupos de **output**.
+Para un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **cp** y **output**. Es decir, podemos afirmar que la distribución de la variable **cp** (tipo de dolor toráxico) difiere significativamente entre los grupos de **output**. 
 
 **thall** y **output**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, warning=FALSE, message=FALSE}
 prop.table(table(data$thall, data$output), margin = 1)
 ```
+- La tasa de salud es menor a la tasa de enfermedad cuando los pacientes dan resultados normales a la prueba de talio, la cual es de $22.02\%$. 
 
--   La tasa de salud es menor a la tasa de enfermedad cuando los pacientes poseen una prueba de esfuerzo con talio que indica un defecto fijo, la cual es de $22.02\%$.
+- Por otro lado, la tasa de salud es alta cuando los pacientes  poseen una prueba de esfuerzo con talio que indica un defecto fijo o defectos reversibles, en este casos, la tasa de salud es $66.67\%$ y $76.07\%$, respectivamente. 
 
--   Por otro lado, la tasa de salud es alta cuando los pacientes dan resultados normales o defectos reversibles, en este casos, la tasa de salud es $66.67\%$ y $76.07\%$, respectivamente.
 
-Con la prueba $\chi^2$ se obtienen los siguientes resultados:
+Con la prueba $\chi^2$ se obtienen los siguientes resultados: 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 outputthall<- table(data$thall, data$output)
 chisq.test(outputthall)
 ```
 
-Para un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **thall** y **output**. Es decir, podemos afirmar que la distribución de la variable **thall** (resultados de prueba de esfuerzo con talio) difiere significativamente entre los grupos de **output**.
+Para un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **thall** y **output**. Es decir, podemos afirmar que la distribución de la variable **thall** (resultados de prueba de esfuerzo con talio) difiere significativamente entre los grupos de **output**. 
 
 **restecg** y **output**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 prop.table(table(data$restecg, data$output), margin = 1)
 ```
+- Cuando el paciente posee anomalías en la onda STT, la tasa de salud ($36.84\%$) es menor en comparación a la tasa de enfermedad ($63.16\%$).
 
--   Cuando el paciente posee anomalías en la onda ST-T, la tasa de salud ($36.84\%$) es menor en comparación a la tasa de enfermedad ($63.16\%$).
+La prueba $\chi^2$ nos indica los siguientes resultados: 
 
-La prueba $\chi^2$ nos indica los siguientes resultados:
-
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 outputrestecg<- table(data$restecg, data$output)
 chisq.test(outputrestecg)
 ```
 
-Para un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **restecg** y **output**. Es decir, podemos afirmar que la distribución de la variable **restecg** (resultados electrocardiográficos en reposo) difiere significativamente entre los grupos de **output**.
+Para un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$, podemos rechazar la hipótesis nula y concluir que existe una asociación significativa entre las variables **restecg** y **output**. Es decir, podemos afirmar que la distribución de la variable **restecg** (resultados electrocardiográficos en reposo) difiere significativamente entre los grupos de **output**. 
 
 **exng** y **output**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 prop.table(table(data$exng, data$output), margin = 1)
 ```
 
--   Si el paciente posee angina la tasa de salud ($76.77\%$) es mayor a la tasa de sufrir un ataque cardíaco ($23.23\%$).
+- Si el paciente posee angina la tasa de salud ($76.77\%$) es mayor a la tasa de sufrir un ataque cardíaco ($23.23\%$). 
 
-Con la prueba $\chi^2$, obtenemos los siguientes resultados:
+Con la prueba $\chi^2$, obtenemos los siguientes resultados: 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 outputexng<- table(data$exng, data$output)
 chisq.test(outputexng)
 ```
@@ -604,17 +624,16 @@ Para un nivel de significancia del $\alpha = 0.05$, dado que $p-valor < \alpha$,
 
 **slp** y **output**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 prop.table(table(data$slp, data$output), margin = 1)
 ```
+- Únicamente cuando la pendiente de un segmento de electrocardiograma del paciente es ascendente, la tasa de salud ($24.65\%$) es menor a la tasa de enfermedad ($75.35\%$).
 
--   Únicamente cuando la pendiente de un segmento de electrocardiograma del paciente es ascendente, la tasa de salud ($24.65\%$) es menor a la tasa de enfermedad ($75.35\%$).
+- Cuando los pacientes tienen pendiente descendente o pendiente normal, entonces sus tasas de salud son mayores, siendo estás de $57.14\%$ y $65\%$, respectivamente. 
 
--   Cuando los pacientes tienen pendiente descendente o pendiente normal, entonces sus tasas de salud son mayores, siendo estás de $57.14\%$ y $65\%$, respectivamente.
+La prueba $\chi^2$ no permite obtener los siguientes resultados: 
 
-La prueba $\chi^2$ no permite obtener los siguientes resultados:
-
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 outputslp<- table( data$slp, data$output)
 chisq.test(outputslp)
 ```
@@ -623,28 +642,27 @@ Si consideramos un nivel de significancia del $\alpha = 0.05$, dado que $p-valor
 
 **fbs** y **output**
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 prop.table(table(data$fbs, data$output), margin = 1)
 ```
+- En ambas categorías la tasa de salud es menor a la tasa de enfermedad. 
 
--   En ambas categorías la tasa de salud es menor a la tasa de enfermedad.
+Aplicando la prueba $\chi^2$, se obtiene que: 
 
-Aplicando la prueba $\chi^2$, se obtiene que:
-
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 outputfbs<- table(data$fbs, data$output)
 chisq.test(outputfbs)
 ```
+Si consideramos un nivel de significancia del $\alpha = 0.05$, dado que $p-valor > \alpha$, no podemos rechazar la hipótesis nula, por lo cual, no existe una asociación significativa entre las variable **fbs** y **output**.  
 
-Si consideramos un nivel de significancia del $\alpha = 0.05$, dado que $p-valor > \alpha$, no podemos rechazar la hipótesis nula, por lo cual, no existe una asociación significativa entre las variable **fbs** y **output**.
 
-# Regresión logística
+## Regresión logística
 
 En el apartado anterior realizamos un análisis bivariado entre las variables numéricas y las variables categóricas con respecto a la variable **ouput**, por lo cual, en esta sección vamos a presentar un modelo de clasificación con la intención de predecir la probabilidad de que una persona sea más propensa a sufrir un ataque cardíaco, para ello, vamos a utilizar una regresión logística.
 
-En primer lugar, vamos a divir el conjunto de datos de modo que el $80\%$ corresponda a la muestra de entrenamiento y el $20\%$ a la muestra de validación, para ello, emplearemos la *librería caret* y la *función createDataPartition()*:
+En primer lugar, vamos a divir el conjunto de datos de modo que el $80\%$ corresponda a la muestra de entrenamiento y el $20\%$ a la muestra de validación, para ello, emplearemos la *librería caret* y la *función createDataPartition()*. 
 
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 library(caret)
 ## Fijamos el semillero
 set.seed(1234)
@@ -654,46 +672,52 @@ training <- data[indice,]
 val <- data[-indice,]
 ```
 
-Verificamos que se mantenga la misma proporción de pacientes propensos y menos propensos a sufrir un ataque cardíaco en ambas muestras:
 
-```{r}
+Verificamos que se mantenga la misma proporción de pacientes propensos y menos propensos a sufrir un ataque cardíaco en ambas muestras: 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 training %>% count(output) %>%
         mutate(Percent = round(100*n / sum(n), 2)) %>%
         kable() %>% kable_material_dark(full_width = F)
 ```
 
-Mientras que para la muestra de validación se tiene que:
 
-```{r}
+Mientras que para la muestra de validación se tiene que: 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 val %>% count(output) %>%
         mutate(Percent = round(100*n / sum(n), 2)) %>%
         kable() %>% kable_material_dark(full_width = F)
 ```
 
-Por lo cual, podemos notar que la variable **output** se encuentra distribuída proporcionalmente en ambas muestras.
 
-## Selección de variables
+Por lo cual, podemos notar que la variable **output** se encuentra distribuída proporcionalmente en ambas muestras. 
 
-En los modelos logit, la prueba para contrastar las hipótesis si los coeficientes son diferentes de cero $(\beta_i\neq0)$ es la prueba de Wald.
+### Selección de variables
 
-Consideremos:
+En los modelos logit, la prueba para contrastar las hipótesis si los coeficientes son diferentes de cero $(\beta_i\neq0)$ es la prueba de Wald. 
+
+Consideremos: 
 
 $$\begin{align*}
     H_0: \hat{\beta}_j & = \beta_{j0}, \\
     H_a: \hat{\beta}_j & \neq \beta_{j0}. 
 \end{align*}$$
 
-Bajo la hipótesis nula, el estadístico de Wald sigue una distribución $\chi^2$, y se define por: $$
+Bajo la hipótesis nula, el estadístico de Wald sigue una distribución $\chi^2$, y se define por: 
+\[
     T = \frac{(\hat{\beta}_j-\beta_{j0})^{2}}{V[\hat{\beta}_j]}
-$$
+\]
 
 Para seleccionar los predictores que deben formar parte del modelo, emplearemos el método backward, este método primero calcula el modelo con todas las variables disponibles, luego se excluyen las variables una a una buscando una mejoría para finalmente eliminar la peor variable. Este método permite evaluar cada variable en presencia de las otras.
 
-Para seleccionar los parámetros del modelo logit emplearemos el criterio de Akaike, que propone estudiar el problema de la identificación desde la perspectiva de la teoría de decisión estadística, que consiste en elegir como función de pérdida (o criterio de especificación) el AIC (Akaike Information Criterion) mínimo. Este valor se calcula por:
+Para seleccionar los parámetros del modelo logit emplearemos el criterio de Akaike, que  propone estudiar el problema de la identificación desde la perspectiva de la teoría de decisión estadística, que consiste en elegir como función de pérdida (o criterio de especificación) el AIC (Akaike Information Criterion) mínimo. Este valor se calcula por: 
 
-$$
+
+\[
     AIC = -2ln( \text{ máxima verosimilitud} ) + 2(\text{ no. de parámetros independientemente ajustados}). 
-$$
+\]
+
 
 Previo a aplicar el modelo, vamos a transformar las variables categóricas a dummy's, para ello, vamos a emplear la *librería fastDummies*:
 
@@ -702,58 +726,59 @@ library(fastDummies)
 training<- training %>% dummy_cols(select_columns = c("sex","cp","fbs","restecg","exng","slp","thall" ), remove_selected_columns = T )
 ```
 
-Aplicamos el modelo con todas las variables y luego consideramos el método backward para seleccionar las variables que formarán parte del modelo final:
 
-```{r, warning=FALSE, message=FALSE}
+Aplicamos el modelo con todas las variables y luego consideramos el método backward para seleccionar las variables que formarán parte del modelo final. 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 logit<- glm(output~., data = training, family='binomial')
 summary(logit)
 ```
-
-Se puede encontrar variables no significativas cuyo p-valor es mayor a $0.05$, por lo tanto, hay que estimar un nuevo modelo.
+Se puede encontrar variables no significativas cuyo p-valor es mayor a $0.05$, por lo tanto, hay que estimar un nuevo modelo. 
 
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 step(logit, direction = "backward")
 ```
 
-De este modo, consideramos el siguiente modelo:
 
-```{r, warning=FALSE, message=FALSE}
+De este modo, consideramos el siguiente modelo: 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 logitFinal<- glm(formula = output ~ chol + thalachh + oldpeak + caa + sex_0 + 
     cp_0 + restecg_1 + thall_2, family = "binomial", data = training)
 
 summary(logitFinal)
 ```
-
-El valor de $AIC$ para este modelo es de $187.3$. Para intepretar los coeficientes obtenidos vamos a emplear los odd ratios:
+El valor de $AIC$ para este modelo es de $187.3$. Para intepretar los coeficientes obtenidos vamos a emplear los odd ratios: 
 
 ```{r, warning=FALSE, message=FALSE}
 odds<- exp(coefficients(logitFinal))
 odds
 ```
 
-De este modo, vamos a intepretar el coeficiente de cada una de las variables, mientras el resto se mantienen constantes:
+De este modo, vamos a intepretar el coeficiente de cada una de las variables, mientras el resto se mantienen constantes: 
 
--   **Intercepto**: Por el signo del coeficiente podemos asegurar que hay menos personas propensas a sufrir un ataque cardíaco. De hecho, existen $1.93$ pacientes propensos a sufrir un ataque cardíaco por cada persona que no es propensa.
+- **Intercepto**: Por el signo del coeficiente podemos asegurar que hay menos personas propensas a sufrir un ataque cardíaco. De hecho, existen $1.93$ pacientes propensos a sufrir un ataque cardíaco por cada persona que no es propensa. 
 
--   **chol**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está negativamente relacionada con la cantidad de colesterol del paciente. Por cada unidad que se reste de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $1.009$ veces.
+- **chol**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está negativamente relacionada con la cantidad de colesterol del paciente. Por cada unidad que se reste de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $1.009$ veces. 
 
--   **thalachh**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está positivamente relacionada con la frecuencia cardíaca máxima alcanzada. Por cada unidad que se aumente de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $1.02$.
+- **thalachh**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está positivamente relacionada con la frecuencia cardíaca máxima alcanzada. Por cada unidad que se aumente de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $1.02$. 
 
--   **oldpeak**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está negativamente relacionada con la depresión del ST inducida por el ejercicio en relación con el reposo. Por cada unidad que se reste de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $2.12$ veces.
+- **oldpeak**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está negativamente relacionada con la depresión del ST inducida por el ejercicio en relación con el reposo. Por cada unidad que se reste de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $2.12$ veces. 
 
--   **caa**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está negativamente relacionada con el número de vasos principales coloreados por fluroscopia. Por cada unidad que se reste de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $2.2$ veces.
+- **caa**: La probabilidad de que un paciente sea propenso a sufrir un ataque cardíaco está negativamente relacionada con el número de vasos principales coloreados por fluroscopia. Por cada unidad que se reste de esta variable la probabilidad de tener un ataque cardíaco aumenta en promedio $2.2$ veces. 
 
--   **sex**: Cuando el paciente es mujer ($sex = 0$) la probabilidad de sufrir un ataque cardíaco es de $3.17$ veces mayor que cuando el paciente es hombre.
+- **sex**: Cuando el paciente es mujer ($sex = 0$) la probabilidad de sufrir un ataque cardíaco es de $3.17$ veces mayor que cuando el paciente es hombre. 
 
--   **cp**: Cuando el paciente es asintomático $cp = 0$, la probabilidad de sufrir un ataque cardíaco es $5.2$ veces menor que aquellos pacientes que poseen angina típica, angina atípica o dolor no anginoso.
+- **cp**: Cuando el paciente es asintomático $cp = 0$, la probabilidad de sufrir un ataque cardíaco es $5.2$ veces menor que aquellos pacientes que poseen angina típica, angina atípica o dolor no anginoso. 
 
--   **restecg**: Cuando el paciente presenta anomalías en la onda ST-T $restecg = 1$, la probabilidad de sufrir un ataque cardíaco es $2.65$ veces mayor que aquellos pacientes cuyos resultados fueron normales o que presentan hipertrofia ventricular izquierda.
+- **restecg**: Cuando el paciente presenta anomalías en la onda ST-T $restecg = 1$, la probabilidad de sufrir un ataque cardíaco es $2.65$ veces mayor que aquellos pacientes cuyos resultados fueron normales o que presentan hipertrofia ventricular izquierda. 
 
--   **thall**: Cuando la prueba de esfuerzo con talio indica qye el paciente posee un defecto fijo $thall=2$, la probabilidad de sufrir un ataque cardíaco es $3.36$ veces mayor que aquellos clientes que obtuvieron defectos reversibles o resultados normales.
+- **thall**: Cuando la prueba de esfuerzo con talio indica que el paciente posee una prueba normal $thall=2$, la probabilidad de sufrir un ataque cardíaco es $3.36$ veces mayor que aquellos clientes que obtuvieron defectos reversibles o fijos.  
 
-Para determinar el punto de corte y clasificar a los pacientes vamos a determinar la medida de Kolmogorov - Smirnov, de este, modo presentamos el gráfico de las distribuciones acumuladas de la razón de verdaderos positivos y la distribución de falsos positivos:
 
-```{r, warning=FALSE, message=FALSE, fig.align='center'}
+Para determinar el punto de corte y clasificar a los pacientes vamos a determinar la medida  de Kolmogorov - Smirnov, de este, modo presentamos el gráfico de las distribuciones acumuladas de la razón de verdaderos positivos y la distribución de falsos positivos. 
+
+```{r, warning=FALSE, message=FALSE, fig.align='center', echo=FALSE}
 library(ROCit) 
 
 val<- val %>% dummy_cols(select_columns = c("sex","cp","fbs","restecg","exng","slp","thall" ), remove_selected_columns = T )
@@ -768,10 +793,9 @@ cutoff <-ksplot$'KS Cutoff'
 
 kstat <-as.numeric(ksplot$'KS stat')
 ```
+De este modo, el valor del $KS$ es `r kstat`, el cual se alcanza en `r cutoff`. Por lo cual, vamos a clasificar como pacientes propensos a sufrir un ataque cardíaco aquellos pacientes cuya probabilidad sea mayor a `r cutoff`.  De este modo, presentamos la matriz de confusión: 
 
-De este modo, el valor del $KS$ es `r kstat`, el cual se alcanza en `r cutoff`. Por lo cual, vamos a clasificar como pacientes propensos a sufrir un ataque cardíaco aquellos pacientes cuya probabilidad sea mayor a `r cutoff`. De este modo, presentamos la matriz de confusión:
-
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 
 val<- val %>% mutate(PREDICHO = predict(logitFinal, val, type="response"), 
                      PREDICCION = as.factor(ifelse(PREDICHO > cutoff , 1, 0)))
@@ -781,11 +805,11 @@ matrizConfusionVal<- confusionMatrix(val$PREDICCION, val$output, positive = "1")
 matrizConfusionVal
 ```
 
-De este modo, el modelo tiene una exactitud del $83.05\%$\`, una precisión de $86.67\%$ y un $F_1-score$ del $83.87\%$.
+De este modo, el modelo tiene una exactitud del $83.05\%$`, una precisión de $86.67\%$ y un $F_1-score$ del $83.87\%$. 
 
-Ahora, vamos a calcular el valor del área bajo la curva $AUC$, para ello, consideremos la curva ROC:
+Ahora, vamos a calcular el valor del área bajo la curva $AUC$, para ello, consideremos la curva ROC:  
 
-```{r, warning=FALSE, message=FALSE, fig.align='center'}
+```{r, warning=FALSE, message=FALSE, fig.align='center', echo=FALSE}
 library(plotROC)
 library(ggExtra)
 
@@ -806,14 +830,87 @@ logroc
 
 ```
 
-Con lo cual, obtenemos un valor de $AUC = 0.92$.
+Con lo cual, obtenemos un valor de $AUC = 0.92$. 
 
-Finalmente, para detectar la multicolinealidad emplearemos el **Factor de Inflación de la Varianza Generalizado (GVIF)** de los parámetros estimados, el cual proporciona un índice que mide hasta que punto la varianza de un coeficiente de regresión estimado se incrementa a causa de la colinealidad; Los valores de los GVIF calculados de cada variable no deben ser mayores a 4
 
-```{r, warning=FALSE, message=FALSE}
+Finalmente, para detectar la multicolinealidad emplearemos el **Factor de Inflación de la Varianza Generalizado (GVIF)** de los parámetros estimados, el cual proporciona un índice que mide hasta que punto la varianza de un coeficiente de regresión estimado se incrementa a causa de la colinealidad; Los valores de los GVIF calculados de cada variable no deben ser mayores a 4 
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 car::vif(logitFinal)
 ```
 
-Podemos notar que para ninguna variable el valor del $GVIF$ es superior a $4$, por lo cual, podemos concluir que no existen problemas de multicolinealidad.
+Podemos notar que para ninguna variable el valor del $GVIF$ es superior a $4$, por lo cual, podemos concluir que no existen problemas de multicolinealidad. 
 
-# Conclusiones
+******
+# Representación de los resultados a partir de tablas y gráficas. 
+******
+
+A lo largo de la práctica, se utilizaron varias representaciones gráficas y tablas para mostrar los resultados. A continuación, se muestran algunos ejemplos de las representaciones utilizadas:
+
+- Representación gráfica de la distribución de variables numéricas: Se utilizaron gráficos de densidad y diagramas de caja para representar la distribución de las variables numéricas (age, trtbps, chol, thalachh, oldpeak) en relación a la variable "output". Estos gráficos permiten visualizar la forma de la distribución, los valores atípicos y las diferencias entre los grupos.
+
+- Representación gráfica de variables categóricas: Se utilizaron gráficos de barras para representar la frecuencia de las variables categóricas (sex, cp, fbs, restecg, exng, slp, thall, output). Estos gráficos permiten comparar las proporciones de diferentes categorías y observar posibles patrones o tendencias.
+
+- Tabla de correlaciones: Se calculó la matriz de correlaciones (método de Spearman) entre las variables numéricas (age, trtbps, chol, thalachh, oldpeak) y se mostró en una tabla. Esta tabla permite identificar las relaciones de correlación entre las variables.
+
+- Gráfico de cajas para variables numéricas y output: Se utilizó un gráfico de cajas para representar la distribución de las variables numéricas (age, trtbps, chol, thalachh, oldpeak) en relación a la variable "output". Este gráfico muestra las diferencias en las distribuciones entre los grupos de "output".
+
+- Gráfico ROC (Receiver Operating Characteristic): Se utilizó un gráfico ROC para evaluar el rendimiento del modelo predictivo. Este gráfico muestra la sensibilidad frente a la especificidad del modelo a diferentes puntos de corte y calcula el área bajo la curva (AUC), que indica la capacidad de discriminación del modelo.
+
+
+******
+# Resolución del problema
+******
+
+A partir de los resultados obtenidos en el análisis estadístico y la evaluación del modelo de regresión logística, podemos llegar a las siguientes conclusiones:
+
+- Las variables que influyen en que una persona sea más o menos propensa a sufrir un ataque cardíaco son: **chol**, **thalachh**, **oldpeak**, **caa**, **sex**, **cp**, **restecg** y **thall**. 
+
+-	El valor del estadístico de Kolmogorov-Smirnov obtenido, con un valor de $0.6956019$, indica que el modelo tiene una buena capacidad para distinguir entre los pacientes propensos y no propensos a sufrir un ataque cardíaco.
+
+-	El punto de corte identificado en $0.6077056$ nos permite clasificar eficientemente a los pacientes propensos a sufrir un ataque cardíaco. Aquellos con una probabilidad estimada superior a este punto de corte se consideran propensos.
+
+-	El modelo de regresión logística ha mostrado un desempeño satisfactorio, con una exactitud del $83.05\%$, una precisión del $86.67\%$ y un F1-score del $83.87\%$. Estos indicadores demuestran la capacidad del modelo para predecir correctamente los casos positivos (pacientes propensos).
+
+-	El valor del área bajo la curva (AUC) obtenido, con un valor de $0.92$, indica que el modelo tiene una buena capacidad de discriminación entre los casos positivos y negativos.
+
+-	El análisis del Factor de Inflación de la Varianza Generalizado (GVIF) ha revelado que no existen problemas significativos de multicolinealidad entre las variables utilizadas en el modelo. Esto refuerza la confiabilidad de las estimaciones de los coeficientes de regresión.
+
+******
+# Código
+******
+
+Durante el desarrollo del ejercicio, se empleó el lenguaje de programación R, el cual se encuentra alojado en un repositorio de GitHub. Se utilizaron diversas herramientas y técnicas para abordar los siguientes elementos:
+
+Descripción del dataset: Se realizó una descripción detallada de los datos utilizados en el análisis, incluyendo la naturaleza de las variables, la estructura de los datos y la distribución de los valores.
+
+Limpieza de datos: Se realizaron tareas de limpieza y preprocesamiento de los datos para garantizar su calidad y adecuación para el análisis. Esto incluyó el manejo de valores faltantes, la corrección de errores y la transformación de variables si fuera necesario.
+
+Variables numéricas: Se llevaron a cabo técnicas como el imputado de valores faltantes, la detección y tratamiento de outliers, y la normalización o estandarización de variables si fuera requerido.
+
+Variables categóricas: Se realizó el manejo de variables categóricas, incluyendo la codificación de variables categóricas en variables numéricas utilizando técnicas como la codificación one-hot o la codificación ordinal.
+
+Correlaciones: Se exploraron las correlaciones entre las variables para identificar posibles relaciones o dependencias entre ellas.
+
+Comparación entre grupos: Se realizaron comparaciones entre grupos de datos utilizando técnicas estadísticas adecuadas. Esto incluyó la comparación de variables numéricas entre diferentes grupos utilizando pruebas de hipótesis o análisis de varianza, y la comparación de variables categóricas utilizando tablas de contingencia y pruebas de chi-cuadrado.
+
+Variables numéricas: Se compararon las distribuciones de variables numéricas entre diferentes grupos para evaluar posibles diferencias estadísticamente significativas.
+
+Variables categóricas: Se compararon las frecuencias de las categorías de variables categóricas entre diferentes grupos para determinar si existían diferencias significativas.
+
+Regresión logística: Se aplicó el modelo de regresión logística para predecir la probabilidad de que una persona sea propensa a sufrir un ataque cardíaco. Se realizaron técnicas de selección de variables para identificar las variables más relevantes en el modelo.
+
+Conclusiones: A partir de los resultados obtenidos, se elaboraron conclusiones sobre el análisis realizado. Estas conclusiones pueden incluir hallazgos importantes, relaciones identificadas entre variables, el rendimiento del modelo de regresión logística y su capacidad para predecir la probabilidad de ataques cardíacos, entre otros aspectos relevantes.
+
+# Vídeo
+
+[Enlace](https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing)
+
+**Contribuciones**
+
+| **Contribuciones**          	| **Firma Integrantes** 	|
+|------------------------------------	|------------------------------	|
+|     Investigación previa           	|     WGGB, OADT               	|
+|     Redacción de las respuestas    	|     WGGB, OADT               	|
+|     Desarrollo del código          	|     WGGB, OADT               	|
+|     Participación en el vídeo      	|     WGGB, OADT               	|
