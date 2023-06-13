@@ -11,14 +11,6 @@ El objetivo de esta actividad será el tratamiento y análisis del dataset Heart
 1) Oscar Augusto Diaz Triana. 
 2) William Gabriel Granda Betancourt
 
-## Acerca de la materia
-
-* Este desarrollo es parte de la Práctica 2 ¿Cómo realizar la limpieza y análisis de datos?
-* Asignatura: Tipologia y ciclo de vida de los datos.
-* Master de Data Science.
-* [Universitat Oberta of Catalunya.](http://www.uoc.edu/portal/ca/index.html)
-* Profesor: Diego Perez
-
 ## Archivos del repositorio
 
 El conjunto de datos se puede encontrar en el siguiente enlace: 
