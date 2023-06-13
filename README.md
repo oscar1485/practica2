@@ -4,7 +4,7 @@
 Esta práctica forma parte de la matería de Tipología y Ciclo de Vida de los Datos de la Maestría en Ciencia de Datos de la Universidad Oberta de la Catalunya.
 
 El objetivo de esta actividad será el tratamiento y análisis del dataset Heart Attack Analysis & Prediction Dataset  - Un conjunto de datos para la clasificación de ataques cardíacos
- [Enlace](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download).
+ [enlace](https://www.kaggle.com/datasets/rashikrahmanpritom/heart-attack-analysis-prediction-dataset?resource=download).
  
 ## Autores
 
