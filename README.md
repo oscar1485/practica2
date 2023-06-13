@@ -30,4 +30,4 @@ El conjunto de datos se puede encontrar en el siguiente enlace:
 - **datosFin.xlsx:** Contiene el conjunto de datos transformado al cual se aplicó las diferentes pruebas y modelos estadísiticos. 
 
 ## Enlace al vídeo
-https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing]((https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing))
+[https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing](https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing)
