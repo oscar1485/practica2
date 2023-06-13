@@ -22,7 +22,7 @@ El objetivo de esta actividad será el tratamiento y análisis del dataset Heart
 ## Archivos del repositorio
 
 El conjunto de datos se puede encontrar en el siguiente enlace: 
-[https://github.com/oscar1485/Practica_limpieza_y_analisis_de_datos/blob/main/heart.csv](https://github.com/oscar1485/practica2/blob/main/heart.csv)]
+[https://github.com/oscar1485/practica2/blob/main/heart.csv](https://github.com/oscar1485/practica2/blob/main/heart.csv)
 
 - **source**: Contiene el código realizado en R Markdown y como el archivo .html exportado. 
 - **GrandaGabriel_DiazOscar.pdf**: Documento PDF con la solución de la práctica. 
@@ -30,4 +30,4 @@ El conjunto de datos se puede encontrar en el siguiente enlace:
 - **datosFin.xlsx:** Contiene el conjunto de datos transformado al cual se aplicó las diferentes pruebas y modelos estadísiticos. 
 
 ## Enlace al vídeo
-https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing![image](https://github.com/oscar1485/practica2/assets/70609754/06cc33c2-b09a-4208-a4b7-820a0cd5ea5f)
+https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing]((https://drive.google.com/drive/folders/1nm67WNiMnT7WIBGh5kqJjXXaBpQsYaqV?usp=sharing))
