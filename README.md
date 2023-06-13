@@ -13,7 +13,7 @@ El objetivo de esta actividad será el tratamiento y análisis del dataset Heart
 
 ## Acerca de la materia
 
-* Este desarrollo es parte de la Práctica 2 de la asignatura: "Tipologia y ciclo de vida de los datos".
+* Este desarrollo es parte de la Práctica 2 ¿Cómo realizar la limpieza y análisis de datos?
 * Asignatura: Tipologia y ciclo de vida de los datos.
 * Master de Data Science.
 * [Universitat Oberta of Catalunya.](http://www.uoc.edu/portal/ca/index.html)
