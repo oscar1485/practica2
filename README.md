@@ -27,7 +27,7 @@ El conjunto de datos se puede encontrar en el siguiente enlace:
 - **source**: Contiene el código realizado en R Markdown y como el archivo .html exportado. 
 - **GrandaGabriel_DiazOscar.pdf**: Documento PDF con la solución de la práctica. 
 - **heart.csv:** Contiene el conjunto de datos original.
-- **datosFin.xlsx:** Contiene el conjunto de datos transformado. 
+- **datosFin.xlsx:** Contiene el conjunto de datos transformado al cual se aplicó las diferentes pruebas y modelos estadísiticos. 
 
 ## Enlace al vídeo: 
 
